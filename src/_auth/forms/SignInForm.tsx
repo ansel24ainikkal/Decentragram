@@ -1,11 +1,16 @@
+import { ethers } from "ethers";
+import abi from "../../abi.json";
+import { useContext, useEffect } from "react";
+import { SocialContext } from "@/context/contractContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import detectEthereumProvider from "@metamask/detect-provider";
+// import { Link } from "react-router-dom";
 import {
   Form,
   FormControl,
-  FormDescription,
+  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +21,37 @@ import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
 
+const provider = await detectEthereumProvider();
+if (provider) {
+  startApp(provider);
+} else {
+  console.log("Please install Metamask");
+}
+
+function startApp(provider) {
+  if (provider !== window.ethereum) {
+    console.error("Do you have multiple wallets installed?");
+  }
+}
+
 const SignInForm = () => {
+  const { setAccount, setContract, setProvider } = useContext(SocialContext);
+  let genContract = async () => {
+    let browserProvider = new ethers.BrowserProvider(window.ethereum);
+    let signer = await browserProvider.getSigner();
+    let address = "0x621Ae105e30A01d0C3DB8C271fF4B95C50F3e31D";
+    const contract = new ethers.Contract(address, abi, signer);
+    console.log(contract);
+    setContract(contract);
+    //contract.createAccount(userName)
+    //contract.createPost()
+    setProvider(browserProvider);
+    setAccount(await signer.getAddress());
+    console.log(signer);
+  };
+  useEffect(() => {
+    genContract();
+  }, []);
   const isloading = false;
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -25,9 +60,15 @@ const SignInForm = () => {
       password: "",
     },
   });
-
+  if (typeof window.ethereum !== "undefined") {
+    console.log("MetaMask is installed!");
+  }
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    const { contract } = useContext(SocialContext);
+    // let succ = await contract.createAccount(z.);
+    // if (succ) console.log("succ");
+    // else console.log("gay");
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
@@ -124,6 +165,9 @@ const SignInForm = () => {
       </div>
     </Form>
   );
+  // import { useContract } from "@/context/contractContext"
+
+  return <div>SignInForm</div>;
 };
 
 export default SignInForm;

@@ -1,7 +1,18 @@
 import Loader from "@/components/shared/Loader";
+import PostCard from "@/components/shared/PostCard";
 import React from "react";
 
+// type PostCardProps = {};
+
 const Home = () => {
+  let post = {
+    creator: {
+      name: "Mrudul",
+      id: "Hardcoded-MVP",
+    },
+    likes: 8,
+    captions: "Good Morning Mumbai",
+  };
   const isPostLoading = false;
   const posts = null;
   return (
@@ -12,7 +23,10 @@ const Home = () => {
           {isPostLoading && !posts ? (
             <Loader />
           ) : (
-            <ul className="flex flex-col flex-1 gap-9 w-full"></ul>
+            <ul className="flex flex-col flex-1 gap-9 w-full">
+              PostCard
+              {/* <PostCard post={post} /> */}
+            </ul>
           )}
         </div>
       </div>

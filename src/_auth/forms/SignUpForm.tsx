@@ -15,8 +15,32 @@ import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
+import { useState } from "react";
 
-const SignUpForm = () => {
+export default function SignUpForm() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentAccount, setCurrentAccount] = useState("");
+
+  const connectWallet = async () => {
+    try {
+      if (!window.ethereum) return alert("Please install MetaMask.");
+
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      setCurrentAccount(accounts[0]);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error connecting wallet.");
+    }
+  };
+
+  // Redirect to main social media content page if authenticated
+  if (isAuthenticated) {
+    window.location.href = "/";
+  }
   const isloading = false;
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -106,15 +130,25 @@ const SignUpForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary">
-            {isloading ? (
-              <div className="flex-center gap-2">
-                <Loader /> Loading ...
-              </div>
-            ) : (
-              "Sign up"
-            )}
-          </Button>
+          <div className="flex gap-4 items-center ">
+            <Button
+              type="submit"
+              className="shad-button_dark_4"
+              onClick={connectWallet}
+            >
+              Connect To MetaMask
+            </Button>
+            <Button type="submit" className="shad-button_primary">
+              {isloading ? (
+                <div className="flex-center gap-2">
+                  <Loader /> Loading ...
+                </div>
+              ) : (
+                "Sign up"
+              )}
+            </Button>
+          </div>
+
           <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an account?
             <Link
@@ -128,6 +162,4 @@ const SignUpForm = () => {
       </div>
     </Form>
   );
-};
-
-export default SignUpForm;
+}
