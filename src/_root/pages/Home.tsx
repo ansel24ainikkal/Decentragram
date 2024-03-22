@@ -8,16 +8,44 @@ import React, { useContext } from "react";
 const Home = () => {
   const { contract } = useContext(SocialContext);
   console.log(contract);
-  let post = {
-    creator: {
-      name: "Mrudul",
-      id: "Hardcoded-MVP",
+  let posts = [
+    {
+      creator: {
+        name: "Mrudul",
+        id: "Hardcoded-MVP",
+      },
+      likes: 8,
+      captions: "Good Morning Mumbai",
+      imageUrl: "src/assets/images/Mrudul_image.jpg",
+      tags: ["peaceful", "serene", "calm"],
+      id: "ABC",
     },
-    likes: 8,
-    captions: "Good Morning Mumbai",
-  };
+    {
+      creator: {
+        name: "Warren",
+        id: "DeadSpheroid",
+      },
+      likes: 7,
+      captions: "Good Evening",
+      imageUrl: "src/assets/images/Warren_image.jpg",
+      tags: ["soothing", "serene", "calming"],
+      id: "DEF",
+    },
+    {
+      creator: {
+        name: "Advait",
+        id: "TIDYMOUSE",
+      },
+      likes: 10,
+      captions: "GoodNight",
+      imageUrl: "src/assets/images/Advait_image.jpg",
+      tags: ["peaceful", "serene", "calm"],
+      id: "XYZ",
+    },
+  ];
+
   const isPostLoading = false;
-  const posts = null;
+  // const posts = null;
   return (
     <div className="flex flex-1">
       <div className="home-container">
@@ -27,8 +55,9 @@ const Home = () => {
             <Loader />
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">
-              PostCard
-              {/* <PostCard post={post} /> */}
+              {posts.map((post) => (
+                <PostCard post={post} />
+              ))}
             </ul>
           )}
         </div>
