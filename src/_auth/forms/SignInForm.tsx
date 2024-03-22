@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import abi from "../../abi.json";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SocialContext } from "@/context/contractContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const provider = await detectEthereumProvider();
 if (provider) {
@@ -36,6 +37,7 @@ function startApp(provider) {
 
 const SignInForm = () => {
   const { setAccount, setContract, setProvider } = useContext(SocialContext);
+  const navigate = useNavigate();
   let genContract = async () => {
     let browserProvider = new ethers.BrowserProvider(window.ethereum);
     let signer = await browserProvider.getSigner();
@@ -52,7 +54,7 @@ const SignInForm = () => {
   useEffect(() => {
     genContract();
   }, []);
-  const isloading = false;
+  const isloading = useState(true);
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
@@ -65,13 +67,15 @@ const SignInForm = () => {
   }
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    console.log("here");
+
     const { contract } = useContext(SocialContext);
     // let succ = await contract.createAccount(z.);
     // if (succ) console.log("succ");
     // else console.log("gay");
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    return <Navigate to="/" />;
   }
 
   return (
@@ -143,14 +147,19 @@ const SignInForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary">
-            {isloading ? (
-              <div className="flex-center gap-2">
-                <Loader /> Loading ...
-              </div>
-            ) : (
-              "Sign In"
-            )}
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+            className="shad-button_primary"
+          >
+            {/* {isloading ? ( */}
+            <div className="flex-center gap-2">
+              {/* <Loader /> Loading ... */}
+              Sign In
+            </div>
+            {/* ) : ( */}
+            {/* )} */}
           </Button>
           {/* <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an account?
@@ -167,7 +176,7 @@ const SignInForm = () => {
   );
   // import { useContract } from "@/context/contractContext"
 
-  return <div>SignInForm</div>;
+  // return <div>SignInForm</div>;
 };
 
 export default SignInForm;

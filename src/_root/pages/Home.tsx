@@ -1,10 +1,13 @@
 import Loader from "@/components/shared/Loader";
 import PostCard from "@/components/shared/PostCard";
-import React from "react";
+import { SocialContext } from "@/context/contractContext";
+import React, { useContext } from "react";
 
 // type PostCardProps = {};
 
 const Home = () => {
+  const { contract } = useContext(SocialContext);
+  console.log(contract);
   let post = {
     creator: {
       name: "Mrudul",
