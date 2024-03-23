@@ -38,20 +38,31 @@ function startApp(provider) {
 const SignInForm = () => {
   const { setAccount, setContract, setProvider, setAuthenticated } =
     useContext(SocialContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const genContract = async () => {
     const browserProvider = new ethers.BrowserProvider(window.ethereum);
     const signer = await browserProvider.getSigner();
     const contract = new ethers.Contract(abi.address, abi.abi, signer);
-    console.log(contract);
     setContract(contract);
     //contract.createAccount(userName)
     //contract.createPost()
     setProvider(browserProvider);
     setAccount(await signer.getAddress());
-    console.log(signer);
+    // console.log(signer);
     if (contract && signer) {
-      setAuthenticated(await signer.getAddress());
+      // setAuthenticated(await signer.getAddress());
+      let res = await contract.login();
+      if(res[0] == ""){
+        let new_acc = await contract.createAccount("Advait Yadav", "myemail@123.com", 0);
+        if(new_acc){
+          console.log("succcessss");
+          setAuthenticated(new_acc);
+        }
+      }
+      else{
+        setAuthenticated(true);
+        console.log(res);
+      }
     }
   };
   useEffect(() => {
