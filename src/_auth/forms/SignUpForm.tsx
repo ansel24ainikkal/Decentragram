@@ -39,7 +39,7 @@ export default function SignUpForm() {
 
   // Redirect to main social media content page if authenticated
   if (isAuthenticated) {
-    window.location.href = "/";
+    window.location.href = "/home-page";
   }
   const isloading = false;
   const form = useForm<z.infer<typeof SignupValidation>>({
