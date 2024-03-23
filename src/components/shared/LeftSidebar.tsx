@@ -29,7 +29,7 @@ const LeftSidebar = () => {
 
           <div className="flex flex-col">
             <p className="body-bold">Hardcoded-MVP</p>
-            <p className="small-regular text-light-3">@Hardcoded-MVP</p>
+            <p className="small-regular #87CEEB">@Hardcoded-MVP</p>
           </div>
         </Link>
         <ul className="flex flex-col gap-6">
@@ -39,9 +39,7 @@ const LeftSidebar = () => {
             return (
               <li
                 key={link.label}
-                className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"
-                }`}
+                className={`leftsidebar-link group ${isActive && "#87CEEB"}`}
               >
                 <NavLink
                   to={link.route}

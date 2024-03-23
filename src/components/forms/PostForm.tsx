@@ -33,7 +33,7 @@ const PostForm = ({ post }) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     const formValues = form.getValues();
-    console.log(formValues, formValues.file[0].path);
+    console.log(formValues);
   }
   return (
     <Form {...form}>

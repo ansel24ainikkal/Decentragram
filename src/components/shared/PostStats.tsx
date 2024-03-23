@@ -82,12 +82,24 @@ import { Button } from "../ui/button";
 // export default PostStats
 
 const PostStats = () => {
+  //   let count = 0;
+  //   const changeColour = () => {
+  //     console.log(count);
+  //     count = count + 1;
+  //     if (count % 2 == 0) {
+  //       return "like.svg";
+  //     } else {
+  //       return "liked.svg";
+  //     }
+  //   };
+  //   let name = changeColour();
+  //   console.log(name);
   return (
     <section className="post-stats">
       <div className={"flex-start flex-row gap-1 p-2 transition "}>
         <Button>
           <img
-            src="src/assets/icons/liked.svg"
+            src={"src/assets/icons/like.svg"}
             alt="like"
             width={20}
             height={20}
