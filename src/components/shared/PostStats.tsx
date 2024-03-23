@@ -2,6 +2,8 @@
 // import {useDeleteSavedPost, useLikePost, useSavePost} from "@/lib/react-query/queriesAndMutations";
 // import {Models} from "appwrite"
 
+import { Button } from "../ui/button";
+
 // type PostStatsProps ={
 //   post: Models.Document;
 //   userId: string;
@@ -79,10 +81,37 @@
 
 // export default PostStats
 
-import React from "react";
-
-const PostStats = () => {
-  return <div>PostStats</div>;
+const Bottombar = () => {
+  return (
+    <section className="bottom-bar">
+      <div className={"flex-center flex-col gap-1 p-2 transition"}>
+        <Button>
+          <img
+            src="src/assets/icons/like.svg"
+            alt="like"
+            width={16}
+            height={16}
+          />
+        </Button>
+        <Button>
+          <img
+            src="src/assets/icons/chat.svg"
+            alt="comment"
+            width={16}
+            height={16}
+          />
+        </Button>
+        <Button>
+          <img
+            src="src/assets/icons/favicon.ico"
+            alt="donate"
+            width={16}
+            height={16}
+          />
+        </Button>
+      </div>
+    </section>
+  );
 };
 
-export default PostStats;
+export default Bottombar;
