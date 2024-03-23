@@ -54,14 +54,17 @@ const SignInForm = () => {
     if (contract && signer) {
       // setAuthenticated(await signer.getAddress());
       let res = await contract.login();
-      if(res[0] == ""){
-        let new_acc = await contract.createAccount("Advait Yadav", "myemail@123.com", 0);
-        if(new_acc){
+      if (res[0] == "") {
+        let new_acc = await contract.createAccount(
+          "Advait Yadav",
+          "myemail@123.com",
+          0
+        );
+        if (new_acc) {
           console.log("succcessss");
           setAuthenticated(new_acc);
         }
-      }
-      else{
+      } else {
         setAuthenticated(true);
         console.log(res);
       }
@@ -120,7 +123,6 @@ const SignInForm = () => {
               </FormItem>
             )}
           /> */}
-
           <FormField
             control={form.control}
             name="username"
@@ -148,7 +150,6 @@ const SignInForm = () => {
               </FormItem>
             )}
           /> */}
-
           <FormField
             control={form.control}
             name="password"
@@ -162,7 +163,6 @@ const SignInForm = () => {
               </FormItem>
             )}
           />
-
           <Button onClick={onSubmit} className="shad-button_primary">
             {/* {isloading ? ( */}
             <div className="flex-center gap-2">
@@ -177,10 +177,9 @@ const SignInForm = () => {
             <Link
               to="/home-page"
               className="text-primary-500 text-small-semibold ml-1"
-            >
-              Log in
-            </Link>
-          </Button>
+            > */}
+          {/* </Link>
+          </Button> */}
         </form>
       </div>
     </Form>
