@@ -1,4 +1,5 @@
-import React from 'react';
+import { SocialContext } from '@/context/contractContext';
+import React, { useContext, useEffect, useState } from 'react';
 
 interface ProfileInfoProps {
   username: string;
@@ -9,6 +10,18 @@ interface ProfileInfoProps {
 }
 
 const ProfilePage: React.FC = () => {
+  const{contract, account} = useContext(SocialContext)
+  const [username, setusername] = useState("")
+  const [follower_count, setfollower_count] = useState(0)
+  const [following_count, setfollowing_count] = useState(0)
+  const [niche_points, setniche_points] = useState(0)
+  const [email, setemail] = useState("")
+  useEffect(() => {
+     async function getData(){
+     console.log(await Contract.accounts(account))
+     }
+     getData()
+  },[])
   const CircleContainer: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
     return <div className="circle-container"><img src={src} alt={alt} /></div>;
   };
@@ -24,7 +37,7 @@ const ProfilePage: React.FC = () => {
       </div>
     );
   };
-
+  
   return (
     <div className="profile-page block w-full" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <div className="profile-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
