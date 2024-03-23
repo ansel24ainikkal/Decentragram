@@ -2,13 +2,17 @@ import Loader from "@/components/shared/Loader";
 import PostCard from "@/components/shared/PostCard";
 import { SocialContext } from "@/context/contractContext";
 import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 // type PostCardProps = {};
 
 const Home = () => {
-  const { contract } = useContext(SocialContext);
+  const { contract, isAuthenticated } = useContext(SocialContext);
+  if (!isAuthenticated) {
+    return <Navigate to="/sign-in" />;
+  }
   console.log(contract);
-  let posts = [
+  const posts = [
     {
       creator: {
         name: "Mrudul",

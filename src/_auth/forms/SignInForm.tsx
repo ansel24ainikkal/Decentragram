@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import abi from "../../abi.json";
+import abi from "../../../contractJSON/abi.json";
 import { useContext, useEffect, useState } from "react";
 import { SocialContext } from "@/context/contractContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,13 +36,13 @@ function startApp(provider) {
 }
 
 const SignInForm = () => {
-  const { setAccount, setContract, setProvider } = useContext(SocialContext);
+  const { setAccount, setContract, setProvider, setAuthenticated } =
+    useContext(SocialContext);
   const navigate = useNavigate();
-  let genContract = async () => {
-    let browserProvider = new ethers.BrowserProvider(window.ethereum);
-    let signer = await browserProvider.getSigner();
-    let address = "0x621Ae105e30A01d0C3DB8C271fF4B95C50F3e31D";
-    const contract = new ethers.Contract(address, abi, signer);
+  const genContract = async () => {
+    const browserProvider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await browserProvider.getSigner();
+    const contract = new ethers.Contract(abi.address, abi.abi, signer);
     console.log(contract);
     setContract(contract);
     //contract.createAccount(userName)
@@ -50,11 +50,14 @@ const SignInForm = () => {
     setProvider(browserProvider);
     setAccount(await signer.getAddress());
     console.log(signer);
+    if (contract && signer) {
+      setAuthenticated(await signer.getAddress());
+    }
   };
   useEffect(() => {
     genContract();
   }, []);
-  const isloading = useState(true);
+  // const isloading = useState(true);
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {

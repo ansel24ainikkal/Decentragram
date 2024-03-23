@@ -24,7 +24,11 @@ const App = () => {
         </Route>
 
         <Route element={<RootLayout />}>
+<<<<<<< HEAD
           <Route path="/home-page" element={<Home />} />
+=======
+          <Route path="/" element={<Home />} />
+>>>>>>> 126b148678240acd1a75d7ff2231161095dfb744
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/all-users" element={<AllUsers />} />
