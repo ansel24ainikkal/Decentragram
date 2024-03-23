@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { setTimeout } from "timers/promises";
 
 const provider = await detectEthereumProvider();
 if (provider) {
@@ -38,26 +39,35 @@ function startApp(provider) {
 const SignInForm = () => {
   const { setAccount, setContract, setProvider, setAuthenticated } =
     useContext(SocialContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const genContract = async () => {
+    // await setTimeout(300);
     const browserProvider = new ethers.BrowserProvider(window.ethereum);
     const signer = await browserProvider.getSigner();
     const contract = new ethers.Contract(abi.address, abi.abi, signer);
-    console.log(contract);
     setContract(contract);
     //contract.createAccount(userName)
     //contract.createPost()
     setProvider(browserProvider);
     setAccount(await signer.getAddress());
-    console.log(signer);
+    // console.log(signer);
     if (contract && signer) {
-      setAuthenticated(await signer.getAddress());
+      // setAuthenticated(await signer.getAddress());
+      let res = await contract.login();
+      if(res[0] == ""){
+        let new_acc = await contract.createAccount("Advait Yadav", "myemail@123.com", 0);
+        if(new_acc){
+          console.log("succcessss");
+          setAuthenticated(new_acc);
+        }
+      }
+      else{
+        setAuthenticated(true);
+        console.log(res);
+      }
     }
   };
-  useEffect(() => {
-    genContract();
-  }, []);
-
+  let navigate = useNavigate();
   const formSchema = z.object({});
   // const isloading = useState(true);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,8 +83,9 @@ const SignInForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("here");
-
-    const { contract } = useContext(SocialContext);
+    await genContract();
+    navigate("/home-page");
+    // const { contract } = useContext(SocialContext);
     // let succ = await contract.createAccount(z.);
     // if (succ) console.log("succ");
     // else console.log("gay");
@@ -151,9 +162,23 @@ const SignInForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="shad-button_primary">
-            <Link to="/home-page">
-              <div className="flex-center gap-2">Sign In</div>
+
+          <Button onClick={onSubmit} className="shad-button_primary">
+            {/* {isloading ? ( */}
+            <div className="flex-center gap-2">
+              {/* <Loader /> Loading ... */}
+              Sign In
+            </div>
+            {/* ) : ( */}
+            {/* )} */}
+          </Button>
+          {/* <p className="text-small-regular text-light-2 text-center mt-2">
+            Already have an account?
+            <Link
+              to="/home-page"
+              className="text-primary-500 text-small-semibold ml-1"
+            >
+              Log in
             </Link>
           </Button>
         </form>

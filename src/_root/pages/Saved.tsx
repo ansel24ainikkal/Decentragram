@@ -46,16 +46,16 @@ const Saved = () => {
             <div className="common-container">
                 <div className="max-w-5x1 flex-start gap-3 justify-start w-full">
                     <img src="src/assets/icons/add-post.svg" width={36} height={36} alt="add" />
-                    <h2 className="h3-bold md:h2-bold text-left w-full">Saved</h2>
+                    <h2 className="h3-bold md:h2-bold text-left w-full" style={{ color: "#87CEEB" }}>NFT Marketplace</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {savedNFTs.map((nft, index) => (
                         <div className="nft-box" key={index}>
                             <img src={nft.imageUrl} alt={nft.title} className="w-full h-auto" />
                             <div className="nft-info">
-                                <h3 style={{ fontSize: "1.2rem", fontWeight: "bold", marginBottom: "0.5rem" }}>{nft.title}</h3>
-                                <p style={{ fontSize: "1rem", marginBottom: "0.3rem" }}>Floor Value: {nft.floorValue}</p>
-                                <p style={{ fontSize: "1rem" }}>Total Volume: {nft.totalVolume}</p>
+                                <h3 style={{ fontFamily: 'Georgia, serif', fontSize: "1.2rem", fontWeight: "bold", marginBottom: "0.5rem", color: "#0096FF" }}>{nft.title}</h3>
+                                <p style={{ fontFamily: 'Comfortaa, sans-serif', fontSize: "1rem", marginBottom: "0.3rem", color: "#FFA500" }}>Floor Value: {nft.floorValue}</p>
+                                <p style={{ fontFamily: 'Comfortaa, sans-serif', fontSize: "1rem", color: "#FFA500" }}>Total Volume: {nft.totalVolume}</p>
                             </div>
                         </div>
                     ))}
@@ -66,3 +66,4 @@ const Saved = () => {
 };
 
 export default Saved;
+

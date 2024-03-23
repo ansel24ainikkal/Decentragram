@@ -15,12 +15,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import FileUploader from "../shared/FileUploader";
-
+import { Navigate, useNavigate } from "react-router";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
 });
 
 const PostForm = ({ post }) => {
+  let navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,6 +31,7 @@ const PostForm = ({ post }) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    return <Navigate to="/" />
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     const formValues = form.getValues();
