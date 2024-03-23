@@ -32,7 +32,8 @@ const PostForm = ({ post }) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const formValues = form.getValues();
+    console.log(formValues, formValues.file[0].path);
   }
   return (
     <Form {...form}>
@@ -42,12 +43,10 @@ const PostForm = ({ post }) => {
       >
         <FormField
           control={form.control}
-          name="caption"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-from_label text-base">
-                Caption
-              </FormLabel>
+              <FormLabel className="shad-from_label text-base">Title</FormLabel>
               <FormControl>
                 <Textarea
                   className="shad-textarea custom-scrollbar"
@@ -70,7 +69,7 @@ const PostForm = ({ post }) => {
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}
-                  mediUrl={post?.imageUrl}
+                  mediaUrl={post?.imageUrl}
                 />
               </FormControl>
               <FormMessage className="shad-from_message" />
@@ -80,27 +79,46 @@ const PostForm = ({ post }) => {
 
         <FormField
           control={form.control}
-          name="location"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-from_label text-base">
-                Add Location
+                Description
               </FormLabel>
               <FormControl>
-                <Input type="text" className="shad-input" />
+                <Textarea
+                  className="shad-textarea custom-scrollbar"
+                  {...field}
+                />
               </FormControl>
               <FormMessage className="shad-from_message" />
             </FormItem>
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
-          name="location"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-from_label text-base">
-                Add Tags(separated by comma ,)
+                Description
+              </FormLabel>
+              <FormControl>
+                <Input type="text" className="shad-input" {...field} />
+              </FormControl>
+              <FormMessage className="shad-from_message" />
+            </FormItem>
+          )}
+        /> */}
+
+        <FormField
+          control={form.control}
+          name="tags"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="shad-from_label text-base">
+                Add Tags(separated by comma )
               </FormLabel>
               <FormControl>
                 <Input
@@ -118,7 +136,7 @@ const PostForm = ({ post }) => {
             Cancel
           </Button>
           <Button
-            type="submit"
+            onClick={onSubmit}
             className="shad-button_primary whitespace-nowrap"
           >
             Submit
