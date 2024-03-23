@@ -151,25 +151,11 @@ const SignInForm = () => {
               </FormItem>
             )}
           />
-
-          <Link to="/home-page" className="shad-button_primary">
-            {/* {isloading ? ( */}
-            <div className="flex-center gap-2">
-              {/* <Loader /> Loading ... */}
-              Sign In
-            </div>
-            {/* ) : ( */}
-            {/* )} */}
-          </Link>
-          {/* <p className="text-small-regular text-light-2 text-center mt-2">
-            Already have an account?
-            <Link
-              to="/sign-in"
-              className="text-primary-500 text-small-semibold ml-1"
-            >
-              Log in
+          <Button type="submit" className="shad-button_primary">
+            <Link to="/home-page">
+              <div className="flex-center gap-2">Sign In</div>
             </Link>
-          </p> */}
+          </Button>
         </form>
       </div>
     </Form>

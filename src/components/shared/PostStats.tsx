@@ -87,26 +87,26 @@ const PostStats = () => {
       <div className={"flex-start flex-row gap-1 p-2 transition "}>
         <Button>
           <img
-            src="src/assets/icons/like.svg"
+            src="src/assets/icons/liked.svg"
             alt="like"
-            width={16}
-            height={16}
+            width={20}
+            height={20}
           />
         </Button>
         <Button>
           <img
             src="src/assets/icons/chat.svg"
             alt="comment"
-            width={16}
-            height={16}
+            width={20}
+            height={20}
           />
         </Button>
         <Button>
           <img
             src="src/assets/icons/favicon.ico"
             alt="donate"
-            width={16}
-            height={16}
+            width={20}
+            height={20}
           />
         </Button>
       </div>
