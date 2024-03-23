@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignupValidation } from "@/lib/validation";
+// import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
 import { useState } from "react";
@@ -37,13 +37,14 @@ export default function SignUpForm() {
     }
   };
 
+  const formSchema = z.object({});
   // Redirect to main social media content page if authenticated
   if (isAuthenticated) {
     window.location.href = "/home-page";
   }
   const isloading = false;
-  const form = useForm<z.infer<typeof SignupValidation>>({
-    resolver: zodResolver(SignupValidation),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       username: "",
@@ -53,7 +54,7 @@ export default function SignUpForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);

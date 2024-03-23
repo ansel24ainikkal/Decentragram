@@ -81,10 +81,10 @@ import { Button } from "../ui/button";
 
 // export default PostStats
 
-const Bottombar = () => {
+const PostStats = () => {
   return (
-    <section className="bottom-bar">
-      <div className={"flex-center flex-col gap-1 p-2 transition"}>
+    <section className="post-stats">
+      <div className={"flex-start flex-row gap-1 p-2 transition "}>
         <Button>
           <img
             src="src/assets/icons/like.svg"
@@ -114,4 +114,4 @@ const Bottombar = () => {
   );
 };
 
-export default Bottombar;
+export default PostStats;

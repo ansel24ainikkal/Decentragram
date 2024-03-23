@@ -17,10 +17,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SignupValidation } from "@/lib/validation";
+// import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const provider = await detectEthereumProvider();
 if (provider) {
@@ -57,9 +57,11 @@ const SignInForm = () => {
   useEffect(() => {
     genContract();
   }, []);
+
+  const formSchema = z.object({});
   // const isloading = useState(true);
-  const form = useForm<z.infer<typeof SignupValidation>>({
-    resolver: zodResolver(SignupValidation),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       password: "",
@@ -69,7 +71,7 @@ const SignInForm = () => {
     console.log("MetaMask is installed!");
   }
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("here");
 
     const { contract } = useContext(SocialContext);
@@ -150,12 +152,7 @@ const SignInForm = () => {
             )}
           />
 
-          <Button
-            onClick={() => {
-              navigate("/");
-            }}
-            className="shad-button_primary"
-          >
+          <Link to="/home-page" className="shad-button_primary">
             {/* {isloading ? ( */}
             <div className="flex-center gap-2">
               {/* <Loader /> Loading ... */}
@@ -163,7 +160,7 @@ const SignInForm = () => {
             </div>
             {/* ) : ( */}
             {/* )} */}
-          </Button>
+          </Link>
           {/* <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an account?
             <Link
