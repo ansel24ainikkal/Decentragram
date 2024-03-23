@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { setTimeout } from "timers/promises";
 
 const provider = await detectEthereumProvider();
 if (provider) {
@@ -40,6 +41,7 @@ const SignInForm = () => {
     useContext(SocialContext);
   // const navigate = useNavigate();
   const genContract = async () => {
+    // await setTimeout(300);
     const browserProvider = new ethers.BrowserProvider(window.ethereum);
     const signer = await browserProvider.getSigner();
     const contract = new ethers.Contract(abi.address, abi.abi, signer);
@@ -65,10 +67,7 @@ const SignInForm = () => {
       }
     }
   };
-  useEffect(() => {
-    genContract();
-  }, []);
-
+  let navigate = useNavigate();
   const formSchema = z.object({});
   // const isloading = useState(true);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -84,8 +83,9 @@ const SignInForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("here");
-
-    const { contract } = useContext(SocialContext);
+    await genContract();
+    navigate("/home-page");
+    // const { contract } = useContext(SocialContext);
     // let succ = await contract.createAccount(z.);
     // if (succ) console.log("succ");
     // else console.log("gay");
@@ -163,7 +163,7 @@ const SignInForm = () => {
             )}
           />
 
-          <Link to="/home-page" className="shad-button_primary">
+          <Button onClick={onSubmit} className="shad-button_primary">
             {/* {isloading ? ( */}
             <div className="flex-center gap-2">
               {/* <Loader /> Loading ... */}
@@ -171,7 +171,7 @@ const SignInForm = () => {
             </div>
             {/* ) : ( */}
             {/* )} */}
-          </Link>
+          </Button>
           {/* <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an account?
             <Link
