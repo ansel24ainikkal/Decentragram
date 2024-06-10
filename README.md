@@ -21,11 +21,6 @@ This is one of the ways in which this problem can be tackled but not the only on
 [2] [Virtual Try-On Implementation](https://drive.google.com/file/d/13_5T6FjZ-lgoM12CvfxSDrWREuEAgN53/view?usp=sharing
 )
 
-### Examples
-![Image1](https://drive.google.com/uc?id=1fgF3xOsGL9bmAqsCVIecRaYBXr_faOV6)
-
-![Image2](https://drive.google.com/uc?id=1A7AFluZUvBHL1dVuWjiFuiTOyp7VCWde)
-
 **Pre-requisites:** C++ Programming, Python Programming, Basic Understanding of Computer Vision
 
 **Difficulty:** Hard
