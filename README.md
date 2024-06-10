@@ -14,7 +14,7 @@ This is a topic which will include Augmented Reality(AR) combined with Machine L
 
 This is one of the ways in which this problem can be tackled but not the only one. Applicants are encouraged to come up with your own solutions and steps to complete this project which could be more efficient and unique. 
 
-### References
+**References:**
 [1] [Human Localization in Real-Time Video](https://drive.google.com/file/d/1AcBzRNdpn2sMVZ81QY057rZrboTo2ZMy/view?usp=sharing
 )
 
