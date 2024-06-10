@@ -1,6 +1,6 @@
-#Virtual Try-On for Products
+# Virtual Try-On for Products
 
-![Implementation of the Project](https://drive.google.com/file/d/1fgF3xOsGL9bmAqsCVIecRaYBXr_faOV6/view?usp=sharing)
+![Implementation of the Project](https://drive.google.com/uc?id=1fgF3xOsGL9bmAqsCVIecRaYBXr_faOV6)
 
 Image visual try-on aims at transferring a target clothes image onto a reference person, and has become a hot topic in recent years. Prior works usually focus on preserving the character of a clothes image (e.g. texture, logo, embroidery) when warping it to arbitrary human pose. However, it remains a big challenge to generate photo-realistic try-on images when large occlusions and human poses are presented in the reference person. 
 
